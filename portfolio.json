@@ -1,0 +1,53 @@
+{
+  "name": "Model Portfolio \u2014 Growth-Tilted Multi-Asset (\u20b910L)",
+  "manager": "Aditya Nair",
+  "currency": "INR",
+  "inception_date": "2025-01-01",
+  "risk_free_rate": 0.065,
+
+  "_edit_guide": {
+    "change an amount":  "Edit that holding's 'alloc'. Then DELETE its 'units','cost','cost_price' so they re-derive. Re-run.",
+    "add a stock":       "Copy a stock block. Set name, ticker (Yahoo symbol: NSE=.NS, BSE=.BO), alloc, sleeve, sector, benchmark. Re-run.",
+    "add a fund":        "Copy a fund block. Set name, query (full fund name incl. 'Direct Growth'), alloc, sleeve, benchmark. Re-run.",
+    "remove a holding":  "Delete its whole { } block.",
+    "benchmark value":   "One tag e.g. 'nifty50tri', or a weighted blend e.g. {'nifty50tri':0.6,'debtidx':0.4}. Tags must exist in benchmark_proxies.",
+    "note":              "Allocs need NOT sum to a round number \u2014 invested capital = sum of allocs, computed automatically. This _edit_guide is ignored by the engine."
+  },
+
+  "benchmark_proxies": {
+    "nifty50tri":         {"query": "UTI Nifty 50 Index Fund Direct Growth",                    "label": "Nifty 50 TRI",            "cap": "Large cap"},
+    "nifty500tri":        {"query": "Motilal Oswal Nifty 500 Index Fund Direct Growth",         "label": "Nifty 500 TRI",           "cap": "Multi cap"},
+    "niftymidcap150tri":  {"query": "Motilal Oswal Nifty Midcap 150 Index Fund Direct Growth",  "label": "Nifty Midcap 150 TRI",    "cap": "Mid cap"},
+    "niftysmallcap250tri":{"query": "Motilal Oswal Nifty Smallcap 250 Index Fund Direct Growth","label": "Nifty Smallcap 250 TRI",  "cap": "Small cap"},
+    "debtidx":            {"query": "SBI CRISIL IBX Gilt Index Direct Growth",                  "label": "Gilt/Debt Index (proxy)", "cap": "Debt"}
+  },
+
+  "holdings": [
+    {"name": "Reliance Industries", "type": "stock", "ticker": "RELIANCE.NS", "alloc": 70000,  "sleeve": "Large-cap equity",      "sector": "Energy / Conglomerate", "benchmark": "nifty50tri"},
+    {"name": "HDFC Bank",           "type": "stock", "ticker": "HDFCBANK.NS", "alloc": 55000,  "sleeve": "Large-cap equity",      "sector": "Financials",            "benchmark": "nifty50tri"},
+    {"name": "Larsen & Toubro",     "type": "stock", "ticker": "LT.NS",       "alloc": 45000,  "sleeve": "Large-cap equity",      "sector": "Capital Goods",         "benchmark": "nifty50tri"},
+    {"name": "Bharat Electronics",  "type": "stock", "ticker": "BEL.NS",      "alloc": 45000,  "sleeve": "Defence / large-cap",   "sector": "Defence",               "benchmark": "nifty50tri"},
+    {"name": "Dixon Technologies",  "type": "stock", "ticker": "DIXON.NS",    "alloc": 35000,  "sleeve": "Electronics / mid-cap", "sector": "Electronics Mfg (EMS)", "benchmark": "niftymidcap150tri"},
+
+    {"name": "Parag Parikh Flexi Cap",             "type": "fund", "query": "Parag Parikh Flexi Cap Direct Growth",             "alloc": 130000, "sleeve": "Flexi-cap",             "benchmark": "nifty500tri"},
+    {"name": "ICICI Prudential Bluechip",          "type": "fund", "query": "ICICI Prudential Bluechip Fund Direct Growth",      "alloc": 90000,  "sleeve": "Large-cap",             "benchmark": "nifty50tri"},
+    {"name": "HDFC Flexi Cap",                     "type": "fund", "query": "HDFC Flexi Cap Fund Direct Growth",                "alloc": 80000,  "sleeve": "Flexi-cap",             "benchmark": "nifty500tri"},
+    {"name": "Kotak Emerging Equity",              "type": "fund", "query": "Kotak Emerging Equity Fund Direct Growth",         "alloc": 75000,  "sleeve": "Mid-cap",               "benchmark": "niftymidcap150tri"},
+    {"name": "Nippon India Small Cap",             "type": "fund", "query": "Nippon India Small Cap Fund Direct Growth",        "alloc": 60000,  "sleeve": "Small-cap",             "benchmark": "niftysmallcap250tri"},
+    {"name": "Mirae Asset ELSS Tax Saver",         "type": "fund", "query": "Mirae Asset ELSS Tax Saver Direct Growth",         "alloc": 55000,  "sleeve": "ELSS / multi-cap",      "benchmark": "nifty500tri"},
+    {"name": "SBI Contra",                         "type": "fund", "query": "SBI Contra Fund Direct Growth",                    "alloc": 50000,  "sleeve": "Value / contra",        "benchmark": "nifty500tri"},
+    {"name": "ICICI Prudential Balanced Advantage","type": "fund", "query": "ICICI Prudential Balanced Advantage Direct Growth","alloc": 90000,  "sleeve": "Dynamic asset alloc",   "benchmark": {"nifty50tri": 0.6, "debtidx": 0.4}},
+    {"name": "HDFC Corporate Bond",                "type": "fund", "query": "HDFC Corporate Bond Fund Direct Growth",           "alloc": 120000, "sleeve": "Debt \u2014 corporate bond", "benchmark": "debtidx"}
+  ],
+
+  "thesis": {
+    "headline": "A growth-tilted, all-weather Indian book \u2014 built to beat its own allocation, not a convenient index.",
+    "body": [
+      "Objective. Compound a \u20b910L base at a premium to a passive portfolio of the *same* asset-allocation. The bar is deliberately honest: not Nifty 50, but a blended benchmark weighted to exactly how the money is actually deployed.",
+      "Construction. ~85% equity / ~15% debt. A large-cap core (direct blue chips + a bluechip fund) for stability, a flexi/multi-cap engine (Parag Parikh, HDFC Flexi, contra/value) for the alpha sleeve, and a deliberate mid/small-cap tilt (Dixon, Kotak Emerging, Nippon Small) for the compounding tail. Direct-equity names lean into coverage I know \u2014 industrials, defence and electronics manufacturing (L&T, BEL, Dixon).",
+      "Why a blended benchmark. Benchmarking a multi-cap, part-debt book to the Nifty 50 is the oldest trick for manufacturing alpha that isn't there. Each sleeve is marked to its right index \u2014 large-cap to Nifty 50 TRI, flexi to Nifty 500 TRI, mid to Midcap 150 TRI, small to Smallcap 250 TRI, debt to a gilt index \u2014 then re-aggregated at the portfolio's own weights. Beating this means the *selection* worked, not the asset mix.",
+      "Total-return, always. Every index leg is a Total Return (TRI) proxy \u2014 tracked through a low-cost index fund's NAV, which captures reinvested dividends net of ~15\u201320 bps. Comparing an equity book against a price index (ex-dividend) is a ~1.5% p.a. free kick I'm not interested in claiming.",
+      "What 'live' means here. Direct equities mark intraday off NSE; mutual funds have one NAV a day, so that sleeve marks to the latest declared NAV. Risk and attribution stats are computed on the full daily curve reconstructed from each holding's price/NAV history since inception."
+    ]
+  }
+}
